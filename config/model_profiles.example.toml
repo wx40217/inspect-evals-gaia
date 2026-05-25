@@ -1,0 +1,70 @@
+# 复制本文件为 config/model_profiles.local.toml 后再修改。
+# local 文件已被 .gitignore 忽略，适合保存你自己的 base_url、模型名和环境变量名。
+#
+# 重要约定：
+# - model 使用 Inspect 的模型命名方式，例如 openai/gpt-4.1-mini。
+# - OpenAI 兼容协议使用 openai-api/<provider-name>/<model-name>。
+# - 不建议把真实 key 写进本文件；推荐放到 .env 或 shell 环境变量。
+# - 如需代理，可在具体 profile 下配置 [profiles.<name>.proxy]。
+
+[profiles.openai]
+description = "OpenAI 官方协议示例"
+model = "openai/gpt-4.1-mini"
+api_key_env = "OPENAI_API_KEY"
+# base_url_env = "OPENAI_BASE_URL"
+# base_url = "https://api.openai.com/v1"
+
+[profiles.anthropic]
+description = "Anthropic 官方协议示例"
+model = "anthropic/claude-sonnet-4-5"
+api_key_env = "ANTHROPIC_API_KEY"
+
+[profiles.google]
+description = "Google Gemini 官方协议示例"
+model = "google/gemini-2.5-flash"
+api_key_env = "GOOGLE_API_KEY"
+
+[profiles.deepseek_v4_flash]
+description = "DeepSeek 官方 OpenAI-compatible 协议示例；当前推荐的轻量模型"
+model = "openai-api/deepseek/deepseek-v4-flash"
+api_key_env = "DEEPSEEK_API_KEY"
+base_url_env = "DEEPSEEK_BASE_URL"
+base_url = "https://api.deepseek.com"
+
+# 代理是可选项。启用后脚本会同时设置 HTTP_PROXY/HTTPS_PROXY/ALL_PROXY 及小写形式，
+# 并通过 inspect eval --env 传给 sandbox 内的浏览器、bash、python 工具。
+# [profiles.deepseek_v4_flash.proxy]
+# all = "socks5://host.docker.internal:7890"
+# no_proxy = "localhost,127.0.0.1"
+
+[profiles.deepseek_v4_pro]
+description = "DeepSeek 官方 OpenAI-compatible 协议示例；当前推荐的更强模型"
+model = "openai-api/deepseek/deepseek-v4-pro"
+api_key_env = "DEEPSEEK_API_KEY"
+base_url_env = "DEEPSEEK_BASE_URL"
+base_url = "https://api.deepseek.com"
+
+[profiles.openrouter]
+description = "OpenRouter 示例"
+model = "openrouter/openai/gpt-4.1-mini"
+api_key_env = "OPENROUTER_API_KEY"
+# base_url_env = "OPENROUTER_BASE_URL"
+# base_url = "https://openrouter.ai/api/v1"
+
+[profiles.ollama_local]
+description = "本地 Ollama 示例；需要先启动 ollama 服务并拉取对应模型"
+model = "ollama/llama3.1"
+base_url_env = "OLLAMA_BASE_URL"
+base_url = "http://localhost:11434/v1"
+
+[profiles.custom_openai_compatible]
+description = "任意 OpenAI-compatible 服务示例；provider 名会决定 Inspect 读取的环境变量约定"
+model = "openai-api/my-provider/my-model"
+api_key_env = "MY_PROVIDER_API_KEY"
+base_url_env = "MY_PROVIDER_BASE_URL"
+base_url = "https://your-provider.example.com/v1"
+
+# 有些 OpenAI-compatible 服务不支持原生 tool calling，可先打开工具调用模拟。
+# GAIA 是 agentic benchmark，工具调用能力对结果影响很大；请优先确认服务是否支持原生工具调用。
+[profiles.custom_openai_compatible.model_args]
+emulate_tools = true

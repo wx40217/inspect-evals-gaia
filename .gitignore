@@ -209,6 +209,10 @@ tempCodeRunnerFile.py
 # PyPI configuration file
 .pypirc
 
+# Local evaluation configuration and Inspect logs
+config/model_profiles.local.toml
+logs/
+
 # Marimo
 marimo/_static/
 marimo/_lsp/

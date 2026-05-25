@@ -1,0 +1,13 @@
+# 核心评测框架。
+inspect-ai
+
+# GAIA 评测实现及其额外依赖。
+inspect-evals[gaia]
+
+# 常见远程或 OpenAI-compatible 协议后端会用到这些 SDK。
+openai
+anthropic
+google-genai
+
+# Hugging Face 下载数据集时，如果本机配置了 SOCKS 代理，httpx 需要 socksio 支持。
+httpx[socks]
